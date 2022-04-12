@@ -6,7 +6,7 @@ const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
 const errorHandler = require("./middleware/error.js");
 const compression = require("compression");
-const __dirname = path.resolve();
+const _dirname = path.resolve();
 require("dotenv").config();
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
@@ -30,9 +30,9 @@ app.use(compression());
 app.use(helmet());
 app.set("x-powered-by", false);
 
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(_dirname, "/client/build")));
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
   // res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
