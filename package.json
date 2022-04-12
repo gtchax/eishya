@@ -7,7 +7,7 @@
     "install-client": "cd client && npm install",
     "server": "node index.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "start": "npm run server"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
