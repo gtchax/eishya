@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
 const errorHandler = require("./middleware/error.js");
-
+const compression = require("compression");
 require("dotenv").config();
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
@@ -18,13 +18,14 @@ const app = express();
 
 //---- Middleware
 app.use(express.json());
+
 if (process.env.NODE_ENV === "production") {
   app.use(cors());
 } else {
   app.use(morgan("dev"));
   app.use(cors(corsOptions));
 }
-
+app.use(compression());
 app.use(helmet());
 app.set("x-powered-by", false);
 
