@@ -4,11 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "cd client && npm run build",
+    "build": "npm run build --prefix client",
     "install-client": "cd client && npm install",
     "server": "node index.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": " npm install --prefix client",
     "start": "npm run server"
   },
   "dependencies": {
