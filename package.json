@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "server": "node index.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
