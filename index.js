@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-// const morgan = require("morgan");
+const morgan = require("morgan");
 const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
 const errorHandler = require("./middleware/error.js");
@@ -18,12 +18,13 @@ const app = express();
 
 //---- Middleware
 app.use(express.json());
-process.env.NODE_ENV === "production"
-  ? app.use(cors())
-  : app.use(cors(corsOptions));
+if (process.env.NODE_ENV === "production") {
+  app.use(cors());
+} else {
+  app.use(morgan("dev"));
+  app.use(cors(corsOptions));
+}
 
-app.use(cors(corsOptions));
-// app.use(morgan("dev"));
 app.use(helmet());
 app.set("x-powered-by", false);
 
