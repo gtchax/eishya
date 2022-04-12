@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const morgan = require("morgan");
-
+// const morgan = require("morgan");
+const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
 const errorHandler = require("./middleware/error.js");
 
 require("dotenv").config();
 let corsOptions = {
-  origin: ["http://localhost:3000", "https://localhost:3000"],
+  origin: [process.env.SITE_URL, process.env.SITE_URL2],
   methods: ["GET", "PUT", "POST", "DELETE"],
   credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -18,10 +18,24 @@ const app = express();
 
 //---- Middleware
 app.use(express.json());
+process.env.NODE_ENV === "production"
+  ? app.use(cors())
+  : app.use(cors(corsOptions));
+
 app.use(cors(corsOptions));
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 app.use(helmet());
 app.set("x-powered-by", false);
+
+if (process.env.NODE_ENV === "production") {
+  // Step 1:
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+  // Step 2:
+  app.get("*", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  });
+}
+
 //--- Mounting routes
 app.use("/api/v1", require("./routes/auth.routes"));
 app.use("/api/v1", require("./routes/user.routes"));

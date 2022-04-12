@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 // Database URL
-const uri = "mongodb://localhost:27017/ice";
+require("dotenv").config();
+const uri = process.env.DB_URL;
+// "mongodb://localhost:27017/ice";
 // "mongodb+srv://gwinyai:20Hyperiondev22@hyperion-dev.ykgcd.mongodb.net/store?retryWrites=true&w=majority";
 
 // Connects to the database. Code copied from lecture notes
