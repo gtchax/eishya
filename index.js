@@ -4,8 +4,8 @@ const helmet = require("helmet");
 const fs = require("fs");
 const morgan = require("morgan");
 const path = require("path"); // Accessing the path module
-const connectToDatabase = require("./utils/db");
-const errorHandler = require("./middleware/error.js");
+const connectToDatabase = require("./server/utils/db");
+const errorHandler = require("./server/middleware/error.js");
 const compression = require("compression");
 
 require("dotenv").config();
@@ -43,7 +43,7 @@ const _dirname = path.resolve();
 console.log("_dirname", _dirname);
 
 //joining path of directory
-const directoryPath = path.join(__dirname, "../client");
+const directoryPath = path.join(__dirname, "client");
 //passing directoryPath and callback function
 fs.readdir(directoryPath, function (err, files) {
   //handling error
@@ -58,19 +58,19 @@ fs.readdir(directoryPath, function (err, files) {
 });
 if (process.env.NODE_ENV === "production") {
   // Step 1:
-  app.use(express.static(path.join(_dirname, "../client/build")));
+  app.use(express.static(path.join(_dirname, "client/build")));
   // Step 2:
   app.get("*", function (req, res) {
     res.sendFile(
-      path.resolve(_dirname, "../", "client", "build", "index.html")
+      path.resolve(_dirname, "client", "build", "index.html")
     );
   });
 }
 
 //--- Mounting routes
-app.use("/api/v1", require("./routes/auth.routes"));
-app.use("/api/v1", require("./routes/user.routes"));
-app.use("/api/v1", require("./routes/admin.routes"));
+app.use("/api/v1", require("./server/routes/auth.routes"));
+app.use("/api/v1", require("./server/routes/user.routes"));
+app.use("/api/v1", require("./server/routes/admin.routes"));
 
 //--- Error route
 app.use(errorHandler);

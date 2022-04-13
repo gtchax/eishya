@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "client": "npm start --prefix client",
-    "server-dev": "nodemon server/index.js",
+    "server-dev": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client\"",
-    "start": "node server/index"
+    "start": "node index.js"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
