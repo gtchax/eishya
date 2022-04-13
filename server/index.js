@@ -43,7 +43,7 @@ const _dirname = path.resolve();
 console.log("_dirname", _dirname);
 
 //joining path of directory
-const directoryPath = path.join(__dirname, "client");
+const directoryPath = path.join(__dirname, "../client");
 //passing directoryPath and callback function
 fs.readdir(directoryPath, function (err, files) {
   //handling error
@@ -58,10 +58,12 @@ fs.readdir(directoryPath, function (err, files) {
 });
 if (process.env.NODE_ENV === "production") {
   // Step 1:
-  app.use(express.static(path.join(_dirname, "/client/build")));
+  app.use(express.static(path.join(_dirname, "../client/build")));
   // Step 2:
   app.get("*", function (req, res) {
-    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+    res.sendFile(
+      path.resolve(_dirname, "../", "client", "build", "index.html")
+    );
   });
 }
 
