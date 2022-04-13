@@ -7,8 +7,7 @@
     "client": "npm start --prefix client",
     "server-dev": "nodemon server/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client\"",
-    "start": "nodemon server/index",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "nodemon server/index"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
