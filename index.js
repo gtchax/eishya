@@ -10,23 +10,6 @@ const compression = require("compression");
 
 require("dotenv").config();
 
-console.log("first pass reading files", __dirname);
-//joining path of directory
-const directoryPaths = path.join(__dirname, "client");
-//passing directoryPath and callback function
-fs.readdir(directoryPaths, function (err, files) {
-  //handling error
-  if (err) {
-    return console.log("Unable to scan directory: " + err);
-  }
-  //listing all files using forEach
-  files.forEach(function (file) {
-    // Do whatever you want to do with the file
-    console.log("list of files inside the heroku directory");
-    console.log(file);
-  });
-});
-
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
   methods: ["GET", "PUT", "POST", "DELETE"],
@@ -49,40 +32,17 @@ app.use(compression());
 app.use(helmet());
 app.set("x-powered-by", false);
 
-// app.use(express.static(path.join(_dirname, "/client/build")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-//   // res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
-
 // deployment
-const _dirname = path.resolve();
-console.log("second pass reading files");
-console.log("_dirname", _dirname);
+// const _dirname = path.resolve();
 
-//joining path of directory
-const directoryPath = path.join(_dirname, "client");
-//passing directoryPath and callback function
-fs.readdir(directoryPath, function (err, files) {
-  //handling error
-  if (err) {
-    return console.log("Unable to scan directory: " + err);
-  }
-  //listing all files using forEach
-  files.forEach(function (file) {
-    console.log("Second pass list of files inside the heroku directory");
-    // Do whatever you want to do with the file
-    console.log(file);
-  });
-});
-if (process.env.NODE_ENV === "production") {
-  // Step 1:
-  app.use(express.static(path.join(_dirname, "client/build")));
-  // Step 2:
-  app.get("*", function (req, res) {
-    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   // Step 1:
+//   app.use(express.static(path.join(_dirname, "client/build")));
+//   // Step 2:
+//   app.get("*", function (req, res) {
+//     res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+//   });
+// }
 
 //--- Mounting routes
 app.use("/api/v1", require("./server/routes/auth.routes"));
