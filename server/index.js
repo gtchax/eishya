@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const fs = require("fs");
 const morgan = require("morgan");
 const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
@@ -41,8 +42,6 @@ app.set("x-powered-by", false);
 const _dirname = path.resolve();
 console.log("_dirname", _dirname);
 
-const path = require("path");
-const fs = require("fs");
 //joining path of directory
 const directoryPath = _dirname;
 // path.join(__dirname, 'Documents');
