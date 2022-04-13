@@ -35,14 +35,17 @@ app.set("x-powered-by", false);
 // deployment
 // const _dirname = path.resolve();
 
-// if (process.env.NODE_ENV === "production") {
-//   // Step 1:
-//   app.use(express.static(path.join(_dirname, "client/build")));
-//   // Step 2:
-//   app.get("*", function (req, res) {
-//     res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-//   });
-// }
+if (process.env.NODE_ENV === "production") {
+  // Step 1:
+  // app.use(express.static(path.join(_dirname, "client/build")));
+  // // Step 2:
+  // app.get("*", function (req, res) {
+  //   res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+  // });
+  app.get("/", (req, res) => {
+    res.send({ success: true, data: "Working" });
+  });
+}
 
 //--- Mounting routes
 app.use("/api/v1", require("./server/routes/auth.routes"));
