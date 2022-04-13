@@ -3,7 +3,8 @@ const Order = require("../models/Order");
 const asyncHandler = require("express-async-handler");
 
 exports.me = asyncHandler(async (req, res, next) => {
-  let user = await User.findById(req.user.id);
+  console.log("inside me controller req.user", req.user);
+  let user = await User.findById(req.user._id);
 
   if (user) {
     return res.json({ success: true, data: user });

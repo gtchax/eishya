@@ -6,7 +6,7 @@ const path = require("path"); // Accessing the path module
 const connectToDatabase = require("./utils/db");
 const errorHandler = require("./middleware/error.js");
 const compression = require("compression");
-const _dirname = path.resolve();
+
 require("dotenv").config();
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
@@ -30,27 +30,29 @@ app.use(compression());
 app.use(helmet());
 app.set("x-powered-by", false);
 
-app.use(express.static(path.join(_dirname, "/client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
-  // res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.use(express.static(path.join(_dirname, "/client/build")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+//   // res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
-// if (process.env.NODE_ENV === "production") {
-//   // Step 1:
-//   app.use(express.static(path.resolve(__dirname, "/client/build")));
-//   // Step 2:
-//   app.get("*", function (request, response) {
-//     response.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//   });
-// }
+// deployment
+const _dirname = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  // Step 1:
+  app.use(express.static(path.join(_dirname, "/client/build")));
+  // Step 2:
+  app.get("*", function (req, res) {
+    response.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+  });
+}
 
 //--- Mounting routes
 app.use("/api/v1", require("./routes/auth.routes"));
 app.use("/api/v1", require("./routes/user.routes"));
 app.use("/api/v1", require("./routes/admin.routes"));
 
-//---- Error route
+//--- Error route
 app.use(errorHandler);
 // app.use((req, res, next, err) => {
 //   err.statusCode = err.status || 500;
