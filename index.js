@@ -10,6 +10,7 @@ const compression = require("compression");
 
 require("dotenv").config();
 
+console.log("first pass reading files", __dirname);
 //joining path of directory
 const directoryPaths = path.join(__dirname, "client");
 //passing directoryPath and callback function
@@ -56,6 +57,7 @@ app.set("x-powered-by", false);
 
 // deployment
 const _dirname = path.resolve();
+console.log("second pass reading files");
 console.log("_dirname", _dirname);
 
 //joining path of directory
