@@ -8,6 +8,7 @@ const errorHandler = require("./middleware/error.js");
 const compression = require("compression");
 
 require("dotenv").config();
+
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
   methods: ["GET", "PUT", "POST", "DELETE"],
@@ -39,6 +40,24 @@ app.set("x-powered-by", false);
 // deployment
 const _dirname = path.resolve();
 console.log("_dirname", _dirname);
+
+const path = require("path");
+const fs = require("fs");
+//joining path of directory
+const directoryPath = _dirname;
+// path.join(__dirname, 'Documents');
+//passing directoryPath and callback function
+fs.readdir(directoryPath, function (err, files) {
+  //handling error
+  if (err) {
+    return console.log("Unable to scan directory: " + err);
+  }
+  //listing all files using forEach
+  files.forEach(function (file) {
+    // Do whatever you want to do with the file
+    console.log(file);
+  });
+});
 if (process.env.NODE_ENV === "production") {
   // Step 1:
   app.use(express.static(path.join(_dirname, "/client/build")));
