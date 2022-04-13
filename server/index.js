@@ -43,8 +43,7 @@ const _dirname = path.resolve();
 console.log("_dirname", _dirname);
 
 //joining path of directory
-const directoryPath = _dirname;
-// path.join(__dirname, 'Documents');
+const directoryPath = path.join(__dirname, "client");
 //passing directoryPath and callback function
 fs.readdir(directoryPath, function (err, files) {
   //handling error
