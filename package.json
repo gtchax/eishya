@@ -7,7 +7,7 @@
     "client": "npm start --prefix client",
     "server-dev": "nodemon server/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client\"",
-    "start": "nodemon server/index"
+    "start": "node server/index"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
