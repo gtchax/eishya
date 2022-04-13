@@ -10,6 +10,22 @@ const compression = require("compression");
 
 require("dotenv").config();
 
+//joining path of directory
+const directoryPaths = path.join(__dirname, "client");
+//passing directoryPath and callback function
+fs.readdir(directoryPaths, function (err, files) {
+  //handling error
+  if (err) {
+    return console.log("Unable to scan directory: " + err);
+  }
+  //listing all files using forEach
+  files.forEach(function (file) {
+    // Do whatever you want to do with the file
+    console.log("list of files inside the heroku directory");
+    console.log(file);
+  });
+});
+
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
   methods: ["GET", "PUT", "POST", "DELETE"],
@@ -43,7 +59,7 @@ const _dirname = path.resolve();
 console.log("_dirname", _dirname);
 
 //joining path of directory
-const directoryPath = path.join(__dirname, "client");
+const directoryPath = path.join(_dirname, "client");
 //passing directoryPath and callback function
 fs.readdir(directoryPath, function (err, files) {
   //handling error
@@ -52,6 +68,7 @@ fs.readdir(directoryPath, function (err, files) {
   }
   //listing all files using forEach
   files.forEach(function (file) {
+    console.log("Second pass list of files inside the heroku directory");
     // Do whatever you want to do with the file
     console.log(file);
   });
@@ -61,9 +78,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(_dirname, "client/build")));
   // Step 2:
   app.get("*", function (req, res) {
-    res.sendFile(
-      path.resolve(_dirname, "client", "build", "index.html")
-    );
+    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
   });
 }
 
