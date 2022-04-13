@@ -38,6 +38,7 @@ app.set("x-powered-by", false);
 
 // deployment
 const _dirname = path.resolve();
+console.log("_dirname", _dirname);
 if (process.env.NODE_ENV === "production") {
   // Step 1:
   app.use(express.static(path.join(_dirname, "/client/build")));
