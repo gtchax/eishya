@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler");
-// const ErrorResponse = require("../utils/errorResponse.js");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
 const dotenv = require("dotenv");
@@ -40,19 +39,3 @@ exports.authCheck = asyncHandler(async (req, res, next) => {
   }
 });
 
-// exports.adminCheck = asyncHandler(async (req, res, next) => {
-//     const {email} = req.user
-
-//     const adminUser = await User.findOne({email})
-
-//     if(adminUser.role !== 'admin') {
-//         res.status(401).json({success: false, error: 'Admin resource. Access denied'});
-
-//         // res.status(401).json({
-//         //     err: 'Admin resource. Access denied'
-//         // })
-//     } else {
-//         next()
-//     }
-
-// })

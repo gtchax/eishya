@@ -8,8 +8,8 @@ const {
   updateprofile,
 } = require("../controllers/user.controller");
 
-const router = express.Router();
 
+const router = express.Router();
 router.use(authCheck);
 
 router.get("/me", me);

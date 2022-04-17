@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "client": "npm start --prefix client",
+    "client-dev": "npm start --prefix client",
     "server-dev": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client\"",
     "start": "node index.js"

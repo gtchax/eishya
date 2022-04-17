@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 let CartSchema = mongoose.Schema(
   {

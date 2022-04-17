@@ -32,18 +32,6 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
-// orderSchema.virtual("profile", {
-//   ref: "User",
-//   foreignField: "profile",
-//   localField: "orderedBy",
-// });
-
-// orderSchema.virtual("profile", {
-//   ref: "User",
-//   localField: "orderedBy",
-//   foreignField: "profile",
-// });
-
 orderSchema.plugin(AutoIncrement, { inc_field: "orderId", start_seq: 1000 });
 
 const Order = mongoose.model("Order", orderSchema);
