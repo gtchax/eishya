@@ -3,7 +3,6 @@ const Order = require("../models/Order");
 const asyncHandler = require("express-async-handler");
 
 exports.me = asyncHandler(async (req, res, next) => {
-  console.log("inside me controller req.user", req.user);
   let user = await User.findById(req.user._id);
 
   if (user) {
@@ -32,8 +31,6 @@ exports.myorders = asyncHandler(async (req, res, next) => {
 });
 
 exports.order = asyncHandler(async (req, res, next) => {
-  console.log("req.body", req.body);
-  console.log("req.user", req.user);
   let smallIce = req.body.items.filter((prod) => prod.id === 1);
   let totalSmall = smallIce.reduce((acc, curr) => {
     return acc + Number(curr.qty) * 7;
@@ -63,8 +60,6 @@ exports.order = asyncHandler(async (req, res, next) => {
   } else {
     orderSchema.address = req.user.profile.address.trim();
   }
-
-  console.log("orderSchema", orderSchema);
 
   let newOrder = await Order.create(orderSchema);
 
