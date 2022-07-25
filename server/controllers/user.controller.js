@@ -32,10 +32,13 @@ exports.myorders = asyncHandler(async (req, res, next) => {
 
 exports.order = asyncHandler(async (req, res, next) => {
   let smallIce = req.body.items.filter((prod) => prod.id === 1);
+
+  // Total amount of small ice at (R7.00 per kg)  
   let totalSmall = smallIce.reduce((acc, curr) => {
     return acc + Number(curr.qty) * 7;
   }, 0);
 
+   // Total amount of large ice at (R35.00 per kg) 
   let largeIce = req.body.items.filter((prod) => prod.id !== 1);
   let totalLarge = largeIce.reduce((acc, curr) => {
     return acc + Number(curr.qty * 35);

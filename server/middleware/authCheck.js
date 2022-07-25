@@ -7,6 +7,7 @@ dotenv.config();
 exports.authCheck = asyncHandler(async (req, res, next) => {
   let token;
 
+  // Fetching token from the request header
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -21,7 +22,6 @@ exports.authCheck = asyncHandler(async (req, res, next) => {
         success: false,
         error: "Not authorized. Login again with valid credentials. ",
       });
-    // return next(new ErrorResponse('Not authorized to access this route', 401));
   }
 
   // Verify token

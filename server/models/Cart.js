@@ -1,5 +1,7 @@
+/* Mongoose cart schema used to enforce a structure in the cart collection that would otherwise
+    accept any type of database since MongoDB does not enforce strict structure.
+*/
 const mongoose = require("mongoose");
-
 let CartSchema = mongoose.Schema(
   {
     items: Array,

@@ -8,41 +8,43 @@ const compression = require("compression");
 
 require("dotenv").config();
 
+// Configuring cors to receive requests from a particular host and to accept http methods listed in the methods array
 let corsOptions = {
   origin: [process.env.SITE_URL, process.env.SITE_URL2],
   methods: ["GET", "PUT", "POST", "DELETE"],
   credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
-connectToDatabase();
+
+connectToDatabase(); //Connecting to MongoDB
+
 const app = express();
 
 //---- Middleware
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(cors());
+  app.use(cors()); // Sets the appropriate headers to the response object to prevent cross-origin request error on the frontend
 } else {
-  app.use(morgan("dev"));
+  app.use(morgan("dev")); //prints to the console every request received by the server. Extremely helpful during development
   app.use(cors(corsOptions));
 }
-app.use(compression());
-app.use(helmet());
+app.use(compression()); // Compresses the response so that less bandwidth is required
+app.use(helmet()); // Middleware that certain headers to every response for extra security
 app.set("x-powered-by", false);
 
 
-if (process.env.NODE_ENV === "production") {
-  app.get("/", (req, res) => {
-    res.send({ success: true, data: "Working" });
-  });
-}
 
 //--- Mounting routes
+app.get("/", (req, res) => {
+  res.send({ success: true, data: "Working" });
+});
 app.use("/api/v1", require("./server/routes/auth.routes"));
 app.use("/api/v1", require("./server/routes/user.routes"));
 app.use("/api/v1", require("./server/routes/admin.routes"));
+
 //--- Error route
-app.use(errorHandler);
+app.use(errorHandler); // The error middleware to catch all the errors thrown by any of the routes above.
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

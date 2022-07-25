@@ -2,6 +2,7 @@
   "name": "ice",
   "version": "1.0.0",
   "main": "index.js",
+  "author": "Gwinyai Chakonda",
   "license": "MIT",
   "scripts": {
     "client": "npm start --prefix client",
@@ -29,6 +30,6 @@
     "nodemon": "2.0.15"
   },
   "engines": {
-    "node": "16.14.0"
+    "node": "16.14.2"
   }
 }

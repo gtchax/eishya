@@ -32,6 +32,7 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
+// Mongoose plugin used to ensure that the order id is not only unique but auto increments, and hence keeps count of the total orders
 orderSchema.plugin(AutoIncrement, { inc_field: "orderId", start_seq: 1000 });
 
 const Order = mongoose.model("Order", orderSchema);

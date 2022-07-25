@@ -39,12 +39,10 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
   const token = user.getSignedJwtToken();
   return res.status(200).json({ success: true, token });
-  // sendTokenResponse(user, 200, res);
 });
 
 exports.signup = asyncHandler(async (req, res, next) => {
   const existingUser = await User.findOne({ email: req.body.email });
-  console.log("existingUser", existingUser);
   if (existingUser) {
     return res.status(422).json({
       success: false,
@@ -60,17 +58,4 @@ exports.signup = asyncHandler(async (req, res, next) => {
     const token = newUser.getSignedJwtToken();
     return res.status(200).json({ success: true, token });
   }
-
-  // User.create(req.body, (err, user) => {
-  //   if (err) {
-  //     console.log("error ==========", err);
-  //     console.log("error._message ==========", err._message);
-  //     return res.status(500).json({
-  //       success: false,
-  //       error: err,
-  //     });
-  //   }
-  //   const token = user.getSignedJwtToken();
-  //   return res.status(200).json({ success: true, token });
-  // });
 });

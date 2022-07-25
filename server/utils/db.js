@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-// Database URL
 require("dotenv").config();
-const uri = process.env.DB_URL;
+const uri = process.env.DB_URL; // Database URL
+
 // Connects to the database. Code copied from lecture notes
 function connectToDatabase() {
   mongoose.Promise = global.Promise;

@@ -52,8 +52,8 @@ let userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-// Salts password before saving a new User. This can be treated as database middleware
-// and is executed 'pre', before saving a new user document to the database.
+/* Salts password before saving a new User. This can be treated as database middleware
+ and is executed 'pre', before saving a new user document to the database. */
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

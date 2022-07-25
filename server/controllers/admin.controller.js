@@ -1,8 +1,7 @@
 const Order = require("../models/Order");
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require("express-async-handler"); // Wraps a try catch, useful to avoid having to write try and catch statements for every controller function
 
 exports.orders = asyncHandler(async (req, res, next) => {
-  // let orders = await Order.find().populate("orderedBy");
 
   let orders = await Order.find()
     .populate("orderedBy")
@@ -22,16 +21,13 @@ exports.orders = asyncHandler(async (req, res, next) => {
 });
 
 exports.status = asyncHandler(async (req, res, next) => {
-  console.log("req.body", req.body);
+
   const { orderId, orderStatus } = req.body;
-  console.log("update status", orderStatus);
-  console.log("orderId", orderId);
   const updated = await Order.findOneAndUpdate(
     { orderId },
     { orderStatus },
     { new: true }
   );
-  console.log("updated status", updated);
   if (updated) {
     return res.json({ success: true, data: updated });
   }

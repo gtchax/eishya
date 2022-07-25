@@ -1,10 +1,11 @@
 const ErrorResponse = require("../utils/errorResponse.js");
 
+
+// The error middleware that will catch the errors thrown by any of the routes
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   console.log("err from handler ====>", err);
-
 
   // Mongoose bad ObjectId
   if (err.name === "CastError") {
